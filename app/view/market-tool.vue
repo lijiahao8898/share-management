@@ -119,6 +119,7 @@
 </script>
 
 <style lang="scss" type="text/scss" scoped="">
+    $imageHeight: 220px;
     #marketTool {
         padding-bottom: 60px;
         .row-list {
@@ -126,7 +127,7 @@
                 overflow: hidden;
                 padding: 10px;
                 li {
-                    height: 220px;
+                    height: 280px;
                     position: relative;
                     float: left;
                     width: 23%;
@@ -136,8 +137,9 @@
                     margin: 1%;
                     text-align: center;
                     background: rgba(0, 0, 0, 0.1);
+                    transition: box-shadow 0.5s;
                     &:hover {
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+                        box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
                         .mask {
                             display: flex;
                         }
@@ -148,7 +150,7 @@
                     .avatar-uploader {
                         width: 100%;
                         background: #fff;
-                        height: 150px;
+                        height: $imageHeight;
                     }
                     .avatar-uploader .el-upload {
                         border: 1px dashed #d9d9d9;
@@ -164,13 +166,13 @@
                         font-size: 18px;
                         color: #8c939d;
                         width: 100%;
-                        height: 150px;
-                        line-height: 150px;
+                        height: $imageHeight;
+                        line-height: $imageHeight;
                         text-align: center;
                     }
                     .avatar {
                         width: 100%;
-                        height: 150px;
+                        height: $imageHeight;
                         display: block;
                     }
                     .ope-wrapper {
