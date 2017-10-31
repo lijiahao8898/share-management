@@ -11,6 +11,9 @@
                 {{ item.name }}
             </el-menu-item>
         </el-menu>
+        <div class="user-info" @click="logout()">
+            退出
+        </div>
     </div>
 </template>
 
@@ -36,6 +39,11 @@
                     }
                 ]
             }
+        },
+        methods: {
+            logout: function () {
+                this.$router.push('/login')
+            }
         }
     }
 </script>
@@ -59,6 +67,20 @@
             margin-left: 10px;
             li:hover{
                 background-color: #52ceff!important;
+            }
+        }
+        .user-info{
+            display: inline-block;
+            float: right;
+            height: 60px;
+            line-height: 60px;
+            width: 68px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color .3s;
+            &:hover{
+                background-color: #52ceff;
             }
         }
     }

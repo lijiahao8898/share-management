@@ -2,7 +2,7 @@
     <div class="login-wrapper">
         <div class="login-container">
             <div class="logo">
-                <img :src="logo">
+                <!--<img :src="logo">-->
             </div>
             <div class="login">
                 <div class="line"></div>

@@ -4,12 +4,12 @@
   "description": "vue template",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./dist && webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lijiahao8898/vueModal.git",
-    "build": "rm -rf ./dist && webpack"
+    "url": "git+https://github.com/lijiahao8898/vueModal.git"
   },
   "author": "lijiahao",
   "license": "ISC",
