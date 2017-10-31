@@ -2,8 +2,8 @@
     <div>
         <div class="search-bar">
             <div class="block">
-                <el-input v-model="user.mobile" size="small" placeholder="请输入手机号"></el-input>
-                <el-input v-model="user.name" size="small" placeholder="请输入用户姓名"></el-input>
+                <el-input v-model="user.phone_like" size="small" placeholder="请输入手机号"></el-input>
+                <el-input v-model="user.name_like" size="small" placeholder="请输入用户姓名"></el-input>
                 <el-date-picker
                         v-model="currentTimeData"
                         size="small"
@@ -13,9 +13,10 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期"
                         @change="handleChange"
+                        value-format="yyyy-MM-dd HH:mm:ss"
                         align="right">
                 </el-date-picker>
-                <el-button class="search" type="primary" size="small" icon="el-icon-search">搜索</el-button>
+                <el-button class="search" type="primary" size="small" icon="el-icon-search" @click="search()">搜索</el-button>
             </div>
         </div>
         <el-table
@@ -29,12 +30,12 @@
                 max-height="600px">
             <el-table-column
                     fixed
-                    prop="name"
+                    prop="userName"
                     label="姓名"
                     width="200">
             </el-table-column>
             <el-table-column
-                    prop="date"
+                    prop="gmtCreated"
                     label="填写时间">
             </el-table-column>
             <el-table-column
@@ -52,11 +53,11 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage"
-                    :page-sizes="[100, 200, 300, 400]"
-                    :page-size="100"
+                    :current-page="pageInfo.currentPage"
+                    :page-sizes="pageInfo.pageSizes"
+                    :page-size="pageInfo.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="4000">
+                    :total="pageInfo.total">
             </el-pagination>
         </div>
     </div>
@@ -72,8 +73,16 @@
         data() {
             return {
                 user: {
-                    mobile: '',
-                    name: ''
+                    phone_like: '',
+                    name_like: '',
+                    start_time: '',
+                    end_time: '',
+                },
+                pageInfo: {
+                    total: 20,
+                    pageSize: 20,
+                    pageSizes: [1, 20, 100, 200, 300, 400],
+                    currentPage: 1,
                 },
                 componentHeight: '',
                 currentTimeData: '',
@@ -96,55 +105,7 @@
                         }
                     }]
                 },
-                data: [{
-                    name: '王小虎',
-                    date: '2016-05-03',
-                    phone: '18814884095',
-                    wechat: 'ljhshitiancai'
-                }, {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-08',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-06',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-07',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }],
-                currentPage: 4,
+                data: [],
                 loading: true
             }
         },
@@ -152,32 +113,45 @@
             this.handleAjax();
         },
         updated: function () {
-            this.componentHeight = this.height - 85;
+            this.componentHeight = this.height - 125;
         },
         methods: {
+            search: function () {
+                this.handleAjax();
+            },
             handleSizeChange(val) {
-                console.log(this.height);
-                console.log(`每页 ${val} 条`);
+                // console.log(`每页 ${val} 条`);
+                this.pageInfo.pageSize = val;
                 this.handleAjax();
             },
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                // console.log(`当前页: ${val}`);
+                this.pageInfo.currentPage = val;
                 this.handleAjax();
             },
             handleChange: function (value) {
                 console.log(value);
-                this.handleAjax();
+                this.currentTimeData = value;
+                this.user.start_time = value[0];
+                this.user.end_time = value[1];
             },
             handleAjax: function () {
                 var that = this;
                 that.loading = true;
                 ajax.get({
-                    url: '/wap/domain/get.do',
+                    url: 'query_user',
                     data: {
-                        name: 'lijiahao'
+                        page_size: that.pageInfo.pageSize,
+                        page: that.pageInfo.currentPage,
+                        phone_like: that.user.phone_like,
+                        name_like: that.user.name_like,
+                        start_time: that.user.start_time,
+                        end_time: that.user.end_time
                     }
                 }, function (res) {
                     console.log(res);
+                    that.data = res.data.data;
+                    that.pageInfo.total = res.data.totalCount;
                     that.loading = false;
                 }, function (e) {
                     console.log(e);

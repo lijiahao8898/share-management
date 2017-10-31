@@ -1,10 +1,19 @@
 <template>
-    <div class="app-wrapper" v-show="showInfo" @click="alertHi">
-        <router-view :height="wrapperHeight"></router-view>
+    <div>
+        <app-header></app-header>
+        <div class="app-wrapper" @click="alertHi">
+            <router-view :height="wrapperHeight"></router-view>
+        </div>
+        <app-footer></app-footer>
+        <go-top></go-top>
     </div>
 </template>
 
 <script type="text/babel">
+    import top from 'vueView/common/header.vue';
+    import footer from 'vueView/common/footer.vue';
+    import goTop from 'vueView/components/gotop.vue'
+
     export default {
         props: ['showInfo'],
 
@@ -14,6 +23,11 @@
                 name: '家豪',
                 age: 26
             }
+        },
+        components: {
+            'app-header': top,
+            'app-footer': footer,
+            'go-top': goTop
         },
         mounted: function () {
             this.wrapperHeight = window.innerHeight - 80;
@@ -34,7 +48,8 @@
 
 <style lang="scss" scoped="" type="text/scss">
     @import "../../style/common/global";
-    .app-wrapper{
+
+    .app-wrapper {
         position: relative;
         margin: 15px;
         box-shadow: 0 0 2px $light-blue;

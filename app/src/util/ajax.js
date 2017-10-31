@@ -32,21 +32,22 @@ const ajax = {
         }
         axios({
             url: obj.url,
-            baseURL: obj.baseUrl ? obj.baseUrl : 'http://test.seller.mockuai.com/bossmanager',
+            baseURL: obj.baseUrl ? obj.baseUrl : 'http://192.168.3.132:8080/',
             method: type,
             timeout: 1000,
             responseType: 'json'
         })
             .then(function (res) {
                 // console.log(res);
-                if (res.data.code === 10000) {
-                    success && success(res);
-                } else if( res.data.code === 40000 ){
-                    error && error(res);
-                    //location.replace('/#/login')
-                } else{
-                    error && error(res);
-                }
+                // if (res.data.code === 10000) {
+                //     success && success(res);
+                // } else if( res.data.code === 40000 ){
+                //     error && error(res);
+                //     //location.replace('/#/login')
+                // } else{
+                //     error && error(res);
+                // }
+                success && success(res);
             })
             .catch(function (e) {
                 // console.log(error);

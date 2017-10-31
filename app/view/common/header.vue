@@ -22,21 +22,17 @@
             return {
                 logo: logo,
                 isLogin: true,
-                active: "/spread",
+                active: "spread",
                 "nav": [
                     {
                         id: 1,
-                        name: "营销工具",
-                        link: "/marketing-tool"
+                        name: "营销",
+                        link: "marketing-tool"
                     },
                     {
                         id: 2,
                         name: "推广",
-                        link: "/spread"
-                    },{
-                        id: 3,
-                        name: "登录",
-                        link: '/login'
+                        link: "spread"
                     }
                 ]
             }

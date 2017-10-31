@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import login from 'vueView/login.vue';
 import marketTool from 'vueView/market-tool.vue';
 import spread from 'vueView/spread.vue';
+import home from 'vueView/common/app-wrapper.vue'
 
 Vue.use(VueRouter);
 
@@ -13,19 +14,29 @@ const router = new VueRouter({
     routes: [
         {
             path: '',
-            component: spread
-        }, {
-            path: '/spread',
-            component: spread
-        }, {
-            path: '/marketing-tool',
-            component: marketTool
+            component: login
         }, {
             path: '/login',
             component: login,
             props: {
                 isLogin: false
             }
+        }, {
+            path: '/home',
+            component: home,
+            children: [
+                {
+                    path: '',
+                    component: spread,
+                    redirect: '/home/spread',
+                }, {
+                    path: 'spread',
+                    component: spread
+                }, {
+                    path: 'marketing-tool',
+                    component: marketTool
+                }
+            ]
         }]
 });
 
