@@ -2,8 +2,11 @@
 import Vue from 'vue';
 import router from './src/router';
 
+// ajax
+import axios from 'axios';
+
 // elementUI
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui';
 import {Radio, Loading} from 'element-ui';
 
@@ -14,6 +17,7 @@ import APP from '../app/app.vue';
 Vue.use(ElementUI);
 Vue.use(Radio);
 Vue.use(Loading.directive);
+Vue.prototype.$axios = axios;
 
 // loading
 Vue.prototype.$loading = Loading.service;

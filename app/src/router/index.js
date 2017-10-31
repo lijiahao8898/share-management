@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import login from 'vueView/login.vue';
 import marketTool from 'vueView/market-tool.vue';
+import spread from 'vueView/spread.vue';
 
 Vue.use(VueRouter);
 
@@ -12,10 +13,19 @@ const router = new VueRouter({
     routes: [
         {
             path: '',
-            component: marketTool
-        },{
+            component: spread
+        }, {
+            path: '/spread',
+            component: spread
+        }, {
             path: '/marketing-tool',
             component: marketTool
+        }, {
+            path: '/login',
+            component: login,
+            props: {
+                isLogin: false
+            }
         }]
 });
 

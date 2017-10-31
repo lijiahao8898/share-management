@@ -8,7 +8,7 @@
     export default {
         data() {
             return {
-                name: '分享汇提供技术支持'
+                name: '杭州纷享汇电子商务有限公司提供技术支持'
             }
         }
     }
@@ -18,6 +18,10 @@
     @import "../../style/common/global";
     .footer{
         background: $white;
+        min-height: 60px;
+        line-height: 60px;
+        background: #f8f9fb;
+        letter-spacing: 1px;
         p{
             text-align: center;
             font-size: 12px;

@@ -33,8 +33,7 @@
         <div class="dialog">
             <el-dialog
                     title="温馨提醒！"
-                    :visible.sync="dialogVisible"
-                    size="tiny">
+                    :visible.sync="dialogVisible">
                 <span>{{ message }}</span>
                 <span slot="footer" class="dialog-footer">
                     <el-button size="small" @click="dialogVisible = false">取 消</el-button>
