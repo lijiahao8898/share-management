@@ -14,9 +14,13 @@ import {Radio, Loading} from 'element-ui';
 import 'styleScss/common/reset.css';
 import APP from '../app/app.vue';
 
+// vue插件
+import VueParticles from 'vue-particles'
+
 Vue.use(ElementUI);
 Vue.use(Radio);
 Vue.use(Loading.directive);
+Vue.use(VueParticles);
 Vue.prototype.$axios = axios;
 
 // loading
