@@ -5,6 +5,7 @@ import login from 'vueView/login.vue';
 import marketTool from 'vueView/market-tool.vue';
 import spread from 'vueView/spread.vue';
 import home from 'vueView/common/app-wrapper.vue'
+import notFound from 'vueView/404.vue'
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,9 @@ const router = new VueRouter({
         {
             path: '',
             component: login
+        }, {
+            path: '*',
+            component: notFound
         }, {
             path: '/login',
             component: login,
@@ -38,6 +42,11 @@ const router = new VueRouter({
                 }
             ]
         }]
+});
+
+router.afterEach((to, from) => {
+    // console.log(to);
+    // console.log(from);
 });
 
 export default {

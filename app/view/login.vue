@@ -49,6 +49,7 @@
         components: {},
         data() {
             return {
+                interView: null,
                 particlesColor: '#fff',
                 logo: logo
             }
@@ -58,6 +59,7 @@
             var innerHeight = window.innerHeight - 120;
             wrapper.style.height = innerHeight + 'px';
             console.log(this.particlesColor);
+            this.changeColor();
         },
         updated: function () {
 
@@ -68,11 +70,17 @@
             },
             changeColor: function () {
                 var that = this;
-                setInterval(function () {
+                that.interView = setInterval(function () {
                     that.particlesColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
                     console.log(that.particlesColor)
                 }, 1000)
             }
+        },
+        beforeRouteLeave: function (to, from, next) {
+            console.log(to);
+            console.log(from);
+            clearInterval(this.interView);
+            next();
         }
     }
 </script>

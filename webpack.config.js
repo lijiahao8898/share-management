@@ -23,6 +23,11 @@ module.exports = {
         filename: '[name].js'
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
         new ExtractTextPlugin({
             filename: "bundle.css",
             disable: false,

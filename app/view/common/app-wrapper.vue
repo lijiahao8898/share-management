@@ -2,7 +2,9 @@
     <div>
         <app-header></app-header>
         <div class="app-wrapper" @click="alertHi">
-            <router-view :height="wrapperHeight"></router-view>
+            <transition name="fade">
+                <router-view :height="wrapperHeight"></router-view>
+            </transition>
         </div>
         <app-footer></app-footer>
         <go-top></go-top>

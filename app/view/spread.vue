@@ -2,22 +2,34 @@
     <div>
         <div class="search-bar">
             <div class="block">
-                <el-input v-model="user.phone_like" size="small" placeholder="请输入手机号"></el-input>
-                <el-input v-model="user.name_like" size="small" placeholder="请输入用户姓名"></el-input>
-                <el-date-picker
-                        v-model="currentTimeData"
-                        size="small"
-                        type="datetimerange"
-                        :picker-options="timeData"
-                        range-separator="至"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期"
-                        @change="handleChange"
-                        value-format="yyyy-MM-dd HH:mm:ss"
-                        align="right">
-                </el-date-picker>
-                <el-button class="search" type="primary" size="small" icon="el-icon-search" @click="search()">搜索</el-button>
-                <el-button class="download" size="small" icon="el-icon-download" @click="downLoad()">下载</el-button>
+                <el-row :gutter="10">
+                    <el-col :xs="24" :sm="24" :md="4">
+                        <el-input v-model="user.phone_like" size="small" placeholder="请输入手机号"></el-input>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="4">
+                        <el-input v-model="user.name_like" size="small" placeholder="请输入用户姓名"></el-input>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="10">
+                        <el-date-picker
+                                v-model="currentTimeData"
+                                size="small"
+                                type="datetimerange"
+                                :picker-options="timeData"
+                                range-separator="至"
+                                start-placeholder="开始日期"
+                                end-placeholder="结束日期"
+                                @change="handleChange"
+                                value-format="yyyy-MM-dd HH:mm:ss"
+                                align="right">
+                        </el-date-picker>
+                    </el-col>
+                    <el-col :xs="24" :sm="24" :md="6" class="tr">
+                        <el-button class="search" type="primary" size="small" icon="el-icon-search" @click="search()">搜索
+                        </el-button>
+                        <el-button class="download" size="small" icon="el-icon-download" @click="downLoad()">下载
+                        </el-button>
+                    </el-col>
+                </el-row>
             </div>
         </div>
         <el-table
@@ -68,11 +80,14 @@
     import ElInput from "../../node_modules/element-ui/packages/input/src/input.vue";
     import ajax from '../src/util/ajax'
     import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
+    import ElRow from "element-ui/packages/row/src/row";
 
     export default {
         components: {
+            ElRow,
             ElButton,
-            ElInput},
+            ElInput
+        },
         props: ['height'],
         data() {
             return {
@@ -172,7 +187,10 @@
 
 <style lang="scss" type="text/scss" scoped="">
     @import "../style/common/global";
-    .search-bar{
+    .el-col{
+        margin-bottom: 10px;
+    }
+    .search-bar {
         .search, .download {
             position: relative;
             top: -1px;
@@ -181,11 +199,6 @@
 
     .block {
         margin: 15px 0;
-    }
-
-    .el-input {
-        min-width: 120px;
-        max-width: 220px;
     }
 
     .pagination-block {
