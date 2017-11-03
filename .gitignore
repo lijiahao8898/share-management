@@ -10,6 +10,7 @@ bin-release/
 .idea/
 node_modules/
 dist/
+dist.zip
 
 # Executables
 *.swf

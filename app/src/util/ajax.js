@@ -32,7 +32,7 @@ const ajax = {
         }
         axios({
             url: obj.url,
-            baseURL: obj.baseUrl ? obj.baseUrl : 'http://192.168.3.132:8080/',
+            baseURL: obj.baseUrl ? obj.baseUrl : 'http://116.62.242.23:8080/',
             method: type,
             timeout: 1000,
             responseType: 'json'

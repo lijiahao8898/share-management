@@ -17,6 +17,7 @@
                         align="right">
                 </el-date-picker>
                 <el-button class="search" type="primary" size="small" icon="el-icon-search" @click="search()">搜索</el-button>
+                <el-button class="download" size="small" icon="el-icon-download" @click="downLoad()">下载</el-button>
             </div>
         </div>
         <el-table
@@ -66,9 +67,12 @@
 <script type="text/babel">
     import ElInput from "../../node_modules/element-ui/packages/input/src/input.vue";
     import ajax from '../src/util/ajax'
+    import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
 
     export default {
-        components: {ElInput},
+        components: {
+            ElButton,
+            ElInput},
         props: ['height'],
         data() {
             return {
@@ -119,6 +123,9 @@
             search: function () {
                 this.handleAjax();
             },
+            downLoad: function () {
+                this.$message.warning('当前功能暂未开放~');
+            },
             handleSizeChange(val) {
                 // console.log(`每页 ${val} 条`);
                 this.pageInfo.pageSize = val;
@@ -164,9 +171,12 @@
 </script>
 
 <style lang="scss" type="text/scss" scoped="">
-    .search {
-        position: relative;
-        top: -1px;
+    @import "../style/common/global";
+    .search-bar{
+        .search, .download {
+            position: relative;
+            top: -1px;
+        }
     }
 
     .block {

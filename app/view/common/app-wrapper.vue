@@ -54,5 +54,6 @@
         margin: 15px;
         box-shadow: 0 0 2px $light-blue;
         padding: 5px;
+        background-color: $dark-white;
     }
 </style>

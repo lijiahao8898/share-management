@@ -1,29 +1,41 @@
 'use strict';
 
-const webpack = require('webpack');                         // webpack
-const path = require('path');                               // path
-const CopyWebpackPlugin = require('copy-webpack-plugin');   // 复制文件和目录
-const HtmlWebpackPlugin = require('html-webpack-plugin');   // 快速生成html
+const webpack = require('webpack');                                         // webpack
+const path = require('path');                                               // path
+const CopyWebpackPlugin = require('copy-webpack-plugin');                   // 复制文件和目录
+const commonsPlugin = new webpack.optimize.CommonsChunkPlugin('vendors');   // 提取公共部分
+const HtmlWebpackPlugin = require('html-webpack-plugin');                   // 快速生成html
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');                  // 压缩代码
+const ExtractTextPlugin = require("extract-text-webpack-plugin");           // 提取css到单独的文件
 
 const root_path = path.resolve(__dirname);
 const app_path = path.resolve(root_path, 'app/entry.js');
 const build_path = path.resolve(root_path, 'dist/');
+// var currentTarget = process.env.npm_lifecycle_event;
 
 module.exports = {
     entry: {
-        index: [app_path]
+        index: [app_path],
+        main: ['vue', 'vue-router', 'axios']
     },
     output: {
         path: build_path,
-        filename: "bundle.js"
+        filename: '[name].js'
     },
     plugins: [
+        new ExtractTextPlugin({
+            filename: "bundle.css",
+            disable: false,
+            allChunks: true
+        }),
+        commonsPlugin,
         new CopyWebpackPlugin([
             {
                 from: root_path + '/app/index.html',
                 to: root_path + '/dist/'
             },
         ]),
+        new UglifyJSPlugin(),
         // 开发环境的模块热替换
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
@@ -46,23 +58,39 @@ module.exports = {
                 test: /\.less$/,
                 loader: "style-loader!css-loader!less-loader"
             },
-            {
-                test: /\.scss$/,
-                loader: "style-loader!css-loader!sass-loader"
-            },
+            // {
+            //     test: /\.scss$/,
+            //     loader: "style-loader!css-loader!sass-loader"
+            // },
             {
                 test: /\.js$/,
                 loader: "babel-loader",
                 exclude: /node_modules/
             },
+            // {
+            //     test: /.css$/,
+            //     loader: 'style-loader!css-loader'
+            // },
             {
-                test: /.css$/,
-                loader: 'style-loader!css-loader'
+                test: /\.css$/,
+                // loader: "style-loader!css-loader",
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            },
+            {
+                test: /\.scss$/,
+                // loader: "style-loader!css-loader!sass-loader",
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "sass-loader"
+                })
             },
 
             // 图片转化，小于8K自动转化为base64的编码
             {
-                test:  /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: "url-loader",
                 options: {
                     limit: 8192
@@ -100,5 +128,6 @@ module.exports = {
             // 可以写模板，因为单文件组件的模板会在构建时预编译为 render 函数。
             'vue': 'vue/dist/vue.js'
         }
-    }
+    },
+    devtool: false
 };
