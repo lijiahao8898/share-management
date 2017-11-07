@@ -4,7 +4,7 @@ var config = require("./webpack.config.js");                                    
 
 var compiler = webpack(config);
 
-config.entry.index.unshift(                                                      // 开发环境的模块热替换
+config.entry.bundle.unshift(                                                      // 开发环境的模块热替换
     "webpack-dev-server/client?http://localhost:8292/",
     "webpack/hot/dev-server"
 );

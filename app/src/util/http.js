@@ -5,10 +5,10 @@ import axios from 'axios';
 Vue.use(VueRouter);
 
 
-
 const ajax = {
     init: function () {
         var that = this;
+        that.interceptorsAxios();
         return {
             post: function (obj, success, error) {
                 that.post(obj, success, error);
@@ -24,18 +24,45 @@ const ajax = {
     post: function (obj, success, error) {
         this.vueAxios('post', obj, success, error)
     },
+    interceptorsAxios: function () {
+        // 请求前拦截
+        axios.interceptors.request.use(function (config) {
+            // do something
+            alert(1);
+            return config;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+
+        // 返回前拦截
+        axios.interceptors.response.use(function (response) {
+            // do something
+            alert(2);
+            return response;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+    },
     vueAxios: function (type, obj, success, error) {
         if (type === 'get') {
             axios.defaults.params = obj.data
         } else {
             axios.defaults.data = obj.data
         }
+        var mToken = 'asdasdadlasdasdasd123';
+        axios.defaults.headers.common['Authorization'] = mToken;
         axios({
             url: obj.url,
             baseURL: obj.baseUrl ? obj.baseUrl : 'http://116.62.242.23:8080/',
             method: type,
             timeout: 1000,
-            responseType: 'json'
+            responseType: 'json',
+            auth: {
+                token: '3294928423942=-34203'
+            },
+            params: {
+                ID: 12345
+            },
         })
             .then(function (res) {
                 // console.log(res);
@@ -52,7 +79,7 @@ const ajax = {
             .catch(function (e) {
                 // console.log(error);
                 error && error(e);
-            })
+            });
     }
 };
 

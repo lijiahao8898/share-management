@@ -15,7 +15,7 @@ const build_path = path.resolve(root_path, 'dist/');
 
 module.exports = {
     entry: {
-        index: [app_path],
+        bundle: [app_path],
         main: ['vue', 'vue-router', 'axios']
     },
     output: {
@@ -46,6 +46,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: root_path + '/dist/index.html',
             template: root_path + '/app/index.html',
+            favicon: root_path + '/app/favicon.ico',
             inject: 'body',
             hash: true
             //favicon: path.resolve('./', './src/favicon.ico')

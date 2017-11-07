@@ -35,13 +35,25 @@ const router = new VueRouter({
                     redirect: '/home/spread',
                 }, {
                     path: 'spread',
-                    component: spread
+                    component: spread,
+                    // meta: {
+                    //     // 添加该字段，表示进入这个路由是需要登录的
+                    //     requireAuth: true
+                    // },
                 }, {
                     path: 'marketing-tool',
                     component: marketTool
                 }
             ]
         }]
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requireAuth) {
+        alert(1);
+    } else {
+        next();
+    }
 });
 
 router.afterEach((to, from) => {

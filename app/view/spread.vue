@@ -78,7 +78,7 @@
 
 <script type="text/babel">
     import ElInput from "../../node_modules/element-ui/packages/input/src/input.vue";
-    import ajax from '../src/util/ajax'
+    import ajax from '../src/util/http'
     import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
     import ElRow from "element-ui/packages/row/src/row";
 
