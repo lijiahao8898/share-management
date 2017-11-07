@@ -1,22 +1,21 @@
 {
-  "name": "vuemodal",
+  "name": "share-management",
   "version": "1.0.0",
-  "description": "vue template",
+  "description": "vue",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf ./dist && webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lijiahao8898/vueModal.git"
+    "url": "git+https://github.com/lijiahao8898/share-management.git"
   },
-  "author": "lijiahao",
+  "author": "lijiahao8898",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lijiahao8898/vueModal/issues"
+    "url": "https://github.com/lijiahao8898/share-management/issues"
   },
-  "homepage": "https://github.com/lijiahao8898/vueModal#readme",
+  "homepage": "https://github.com/lijiahao8898/share-management#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
