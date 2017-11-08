@@ -29,6 +29,7 @@ plugin：
 #### what did i use ?
 * vue
 * vue-router
+* vuex
 * elementUI
 * webpack
 * axios
