@@ -34,9 +34,12 @@
                     <div class="login-bg"></div>
                 </div>
                 <div class="login-name">LOGIN</div>
-                <el-input suffix-icon="el-icon-mobile-phone" size="small" type="text" placeholder="请输入账号"></el-input>
-                <el-input suffix-icon="el-icon-view" size="small" type="password" placeholder="请输入密码"></el-input>
+                <el-input suffix-icon="el-icon-mobile-phone" size="small" type="text" v-model="count" placeholder="请输入账号"></el-input>
+                <el-input suffix-icon="el-icon-view" size="small" type="password" v-model="money" placeholder="请输入密码"></el-input>
                 <el-button type="primary" size="small" @click="login()">登录</el-button>
+            </div>
+            <div>
+                <p v-if="isLogin">登录了</p>
             </div>
         </div>
     </div>
@@ -70,10 +73,23 @@
             },
             changeColor: function () {
                 var that = this;
-                that.interView = setInterval(function () {
-                    that.particlesColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-                    console.log(that.particlesColor)
-                }, 1000)
+//                that.interView = setInterval(function () {
+//                    that.particlesColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+//                    console.log(that.particlesColor)
+//                }, 1000)
+            }
+        },
+        computed: {
+            isLogin () {
+                return this.$store.state.isLogin
+            },
+            count () {
+                this.$store.commit('Add', 10);
+                return this.$store.state.count;
+            },
+            money () {
+                this.$store.dispatch('addCount', 20);
+                return this.$store.state.money;
             }
         },
         beforeRouteLeave: function (to, from, next) {

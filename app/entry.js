@@ -1,6 +1,7 @@
 // vue
 import Vue from 'vue';
 import router from './src/router';
+import store from './src/store';
 
 // ajax
 import axios from 'axios';
@@ -28,5 +29,6 @@ Vue.prototype.$loading = Loading.service;
 
 const app = new Vue({
     router: router.router,
+    store: store,
     render: h => h(APP)
 }).$mount('#app');
