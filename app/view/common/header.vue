@@ -19,6 +19,7 @@
 
 <script type="text/babel">
     import logo from '../../style/img/logo.png'
+    import cookie from '../../src/util/cookie';
 
     export default {
         data() {
@@ -42,6 +43,7 @@
         },
         methods: {
             logout: function () {
+                cookie.delete('token');
                 this.$router.push('/login')
             }
         }

@@ -34,8 +34,10 @@
                     <div class="login-bg"></div>
                 </div>
                 <div class="login-name">LOGIN</div>
-                <el-input suffix-icon="el-icon-mobile-phone" size="small" type="text" v-model="count" placeholder="请输入账号"></el-input>
-                <el-input suffix-icon="el-icon-view" size="small" type="password" v-model="money" placeholder="请输入密码"></el-input>
+                <el-input suffix-icon="el-icon-mobile-phone" size="small" type="text" v-model="username"
+                          placeholder="请输入账号"></el-input>
+                <el-input suffix-icon="el-icon-view" size="small" type="password" v-model="password"
+                          placeholder="请输入密码"></el-input>
                 <el-button type="primary" size="small" @click="login()">登录</el-button>
             </div>
             <div>
@@ -46,7 +48,9 @@
 </template>
 
 <script type="text/babel">
-    import logo from '../style/img/logo.png'
+    import logo from '../style/img/logo.png';
+    import ajax from '../src/util/http';
+    import cookie from '../src/util/cookie';
 
     export default {
         components: {},
@@ -54,7 +58,19 @@
             return {
                 interView: null,
                 particlesColor: '#fff',
-                logo: logo
+                logo: logo,
+                username: '',
+                password: '',
+                isAxios: false
+            }
+        },
+        created: function () {
+            let that = this;
+            document.onkeydown = function (e) {
+                let key = window.event.keyCode;
+                if(key === 13){
+                    that.login();
+                }
             }
         },
         mounted: function () {
@@ -62,32 +78,45 @@
             var innerHeight = window.innerHeight - 120;
             wrapper.style.height = innerHeight + 'px';
             console.log(this.particlesColor);
-            this.changeColor();
         },
         updated: function () {
 
         },
         methods: {
             login: function () {
-                this.$router.push('home');
-            },
-            changeColor: function () {
-                var that = this;
-//                that.interView = setInterval(function () {
-//                    that.particlesColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-//                    console.log(that.particlesColor)
-//                }, 1000)
+                let that = this;
+                if (that.isAxios === true) {
+                    that.$message.error('正在登陆请勿重复提交！');
+                    return;
+                }
+                that.isAxios = true;
+                ajax.post({
+                    url: 'login',
+                    data: {
+                        username: that.username,
+                        password: that.password
+                    },
+                    router: that.$router,
+                    message: that.$message
+                }, function (res) {
+                    that.isAxios = false;
+                    cookie.set("token", res.headers.authorization);
+                    that.$router.push('home');
+                }, function (e) {
+                    that.$message.error(e.response.data.message);
+                    that.isAxios = false;
+                })
             }
         },
         computed: {
-            isLogin () {
+            isLogin() {
                 return this.$store.state.isLogin
             },
-            count () {
+            count() {
                 this.$store.commit('Add', 10);
                 return this.$store.state.count;
             },
-            money () {
+            money() {
                 this.$store.dispatch('addCount', 20);
                 return this.$store.state.money;
             }

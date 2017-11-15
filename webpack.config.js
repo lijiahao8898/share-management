@@ -40,7 +40,7 @@ module.exports = {
                 to: root_path + '/dist/'
             },
         ]),
-        //new UglifyJSPlugin(),
+        new UglifyJSPlugin(),
         // 开发环境的模块热替换
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({

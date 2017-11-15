@@ -1,13 +1,19 @@
+/**
+ * 登录失效 401
+ * 登录失败 405
+ */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
+import cookie from './cookie';
 
 Vue.use(VueRouter);
+console.log(cookie);
 
 
 const ajax = {
     init: function () {
-        var that = this;
+        let that = this;
         that.interceptorsAxios();
         return {
             post: function (obj, success, error) {
@@ -28,7 +34,10 @@ const ajax = {
         // 请求前拦截
         axios.interceptors.request.use(function (config) {
             // do something
-            alert(1);
+            let token = cookie.get("token");
+            if (token) {
+                config.headers.token = token
+            }
             return config;
         }, function (error) {
             return Promise.reject(error);
@@ -37,7 +46,6 @@ const ajax = {
         // 返回前拦截
         axios.interceptors.response.use(function (response) {
             // do something
-            alert(2);
             return response;
         }, function (error) {
             return Promise.reject(error);
@@ -49,20 +57,21 @@ const ajax = {
         } else {
             axios.defaults.data = obj.data
         }
-        var mToken = 'asdasdadlasdasdasd123';
-        axios.defaults.headers.common['Authorization'] = mToken;
+        let url = 'http://116.62.242.23:8080/';
+        //let url = 'http://192.168.3.132:8080/';
+
+        console.log(axios.defaults);
+
         axios({
             url: obj.url,
-            baseURL: obj.baseUrl ? obj.baseUrl : 'http://116.62.242.23:8080/',
+            baseURL: obj.baseUrl ? obj.baseUrl : url,
             method: type,
             timeout: 1000,
             responseType: 'json',
             auth: {
                 token: '3294928423942=-34203'
             },
-            params: {
-                ID: 12345
-            },
+            params: {},
         })
             .then(function (res) {
                 // console.log(res);
@@ -77,10 +86,14 @@ const ajax = {
                 success && success(res);
             })
             .catch(function (e) {
-                // console.log(error);
+                console.log(e.response.data);
+                if (e.response.data.status === 401) {
+                    obj.message.error(e.response.data.message);
+                    obj.router.push('/login');
+                }
                 error && error(e);
             });
     }
 };
 
-export default ajax.init()
+export default ajax.init();
