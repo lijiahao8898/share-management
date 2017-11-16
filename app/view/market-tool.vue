@@ -71,7 +71,6 @@
                 this.data.push(row)
             },
             close: function () {
-                console.log('关闭了');
             },
             showDialog: function (index) {
                 this.message = '确定要删除该内容吗？';
@@ -83,20 +82,15 @@
                 this.data.splice(this.currentIndex, 1)
             },
             submit: function () {
-                console.log(this.data);
             },
             getIndex: function (index) {
                 this.currentIndex = index;
-                console.log("当前指针：" + this.currentIndex);
             },
             //
             handlePictureChange: function (file, fileList) {
-                console.log(fileList);
-                console.log(fileList.length);
                 this.data[this.currentIndex].image = URL.createObjectURL(file.raw);
             },
             handlePictureRemove: function (file, fileList) {
-                console.log('removing');
             },
             handlePictureBeforeUploader: function (file) {
                 const isJPG = file.type === 'image/jpeg';
@@ -111,7 +105,6 @@
                 return isJPG && isLt2M;
             },
             handlePicturePreview: function (file) {
-                console.log(file);
             }
         }
     }

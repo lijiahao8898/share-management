@@ -57,8 +57,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
-    // console.log(to);
-    // console.log(from);
+
 });
 
 export default {

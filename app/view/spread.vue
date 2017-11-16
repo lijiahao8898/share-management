@@ -204,7 +204,6 @@
                     router: that.$router,
                     message: that.$message
                 }, function (res) {
-                    console.log(res);
                     that.dialogTableVisible = true;
                     that.downloadData = res.data.data;
                     that.pageInfo.downLoadTotal = res.data.totalCount;

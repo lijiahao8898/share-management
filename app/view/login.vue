@@ -77,7 +77,6 @@
             var wrapper = document.getElementsByClassName('login-wrapper')[0];
             var innerHeight = window.innerHeight - 120;
             wrapper.style.height = innerHeight + 'px';
-            console.log(this.particlesColor);
         },
         updated: function () {
 
@@ -122,8 +121,6 @@
             }
         },
         beforeRouteLeave: function (to, from, next) {
-            console.log(to);
-            console.log(from);
             clearInterval(this.interView);
             next();
         }

@@ -8,7 +8,7 @@ import axios from 'axios';
 import cookie from './cookie';
 
 Vue.use(VueRouter);
-console.log(cookie);
+// console.log(cookie);
 
 
 const ajax = {
@@ -60,7 +60,7 @@ const ajax = {
         let url = 'http://116.62.242.23:8080/';
         //let url = 'http://192.168.3.132:8080/';
 
-        console.log(axios.defaults);
+        // console.log(axios.defaults);
 
         axios({
             url: obj.url,
@@ -86,7 +86,7 @@ const ajax = {
                 success && success(res);
             })
             .catch(function (e) {
-                console.log(e.response.data);
+                // console.log(e.response.data);
                 if (e.response.data.status === 401) {
                     obj.message.error(e.response.data.message);
                     obj.router.push('/login');

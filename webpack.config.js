@@ -20,7 +20,7 @@ module.exports = {
     },
     output: {
         path: build_path,
-        filename: '[name].js'
+        filename: 'src/[name].[hash:8].js'
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -29,7 +29,7 @@ module.exports = {
             }
         }),
         new ExtractTextPlugin({
-            filename: "bundle.css",
+            filename: "style/bundle.[hash:8].css",
             disable: false,
             allChunks: true
         }),
@@ -99,7 +99,8 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: "url-loader",
                 options: {
-                    limit: 8192
+                    limit: 8192,
+                    name:"images/[hash:8].[name].[ext]"
                 }
             },
 
@@ -109,7 +110,7 @@ module.exports = {
             // },
             {
                 test: /\.(woff|woff2|ttf|eot)$/,
-                loader: 'file-loader'
+                loader: 'file-loader?name=/fonts/[hash:8].[name].[ext]'
             },
             // 使用vue-loader 加载 .vue 结尾的文件
             {
