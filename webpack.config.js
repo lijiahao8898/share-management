@@ -29,7 +29,7 @@ module.exports = {
             }
         }),
         new ExtractTextPlugin({
-            filename: "style/bundle.[hash:8].css",
+            filename: "bundle.[hash:8].css",
             disable: false,
             allChunks: true
         }),
@@ -110,7 +110,11 @@ module.exports = {
             // },
             {
                 test: /\.(woff|woff2|ttf|eot)$/,
-                loader: 'file-loader?name=/fonts/[hash:8].[name].[ext]'
+                loader: 'file-loader',
+                options: {
+                    outputPath: './fonts/',
+                    name: '[hash:8].[name].[ext]'
+                }
             },
             // 使用vue-loader 加载 .vue 结尾的文件
             {
