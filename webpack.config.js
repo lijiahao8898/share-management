@@ -29,7 +29,7 @@ module.exports = {
             }
         }),
         new ExtractTextPlugin({
-            filename: "bundle.[hash:8].css",
+            filename: "css/bundle.[hash:8].css",
             disable: false,
             allChunks: true
         }),
@@ -64,19 +64,11 @@ module.exports = {
                 test: /\.less$/,
                 loader: "style-loader!css-loader!less-loader"
             },
-            // {
-            //     test: /\.scss$/,
-            //     loader: "style-loader!css-loader!sass-loader"
-            // },
             {
                 test: /\.js$/,
                 loader: "babel-loader",
                 exclude: /node_modules/
             },
-            // {
-            //     test: /.css$/,
-            //     loader: 'style-loader!css-loader'
-            // },
             {
                 test: /\.css$/,
                 // loader: "style-loader!css-loader",
@@ -90,7 +82,7 @@ module.exports = {
                 // loader: "style-loader!css-loader!sass-loader",
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: "sass-loader"
+                    use: "file-loader"
                 })
             },
 
@@ -103,16 +95,11 @@ module.exports = {
                     name:"images/[hash:8].[name].[ext]"
                 }
             },
-
-            // {
-            //     test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-            //     loader: 'file-loader'
-            // },
             {
                 test: /\.(woff|woff2|ttf|eot)$/,
                 loader: 'file-loader',
                 options: {
-                    outputPath: './fonts/',
+                    outputPath: '/css/fonts/',
                     name: '[hash:8].[name].[ext]'
                 }
             },
